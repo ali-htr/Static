@@ -1,0 +1,109 @@
+:root {
+/* Color Palette */
+    --tx-pri: #007bff; /* Primary color */
+    --tx-pri-btn: var(--tx-pri); /* Primary button color */
+    --tx-pri-link: var(--tx-pri); /* Primary link color */
+    --tx-sec: #6c757d; /* Secondary color */
+    --tx-ter: #adb5bd; /* Tertiary color */
+    --tx-neu-wht: #fff; /* Neutral white color */
+    --tx-neu-lgt: #f0f0f0; /* Neutral light gray color */
+    --tx-neu-med: #ccc; /* Neutral medium gray color */
+    --tx-neu-drk: #666; /* Neutral dark gray color */
+    --tx-neu-blk: #000; /* Neutral black color */
+    --tx-sem-suc: #28a745; /* Semantic success color */
+    --tx-sem-err: #dc3545; /* Semantic error color */
+    --tx-sem-wrn: #ffc107; /* Semantic warning color */
+    --tx-sem-inf: #17a2b8; /* Semantic info color */
+    --tx-sta-hov: rgba(0, 123, 255, 0.1); /* State hover color */
+    --tx-sta-foc: rgba(0, 123, 255, 0.3); /* State focus color */
+    --tx-sta-act: rgba(0, 123, 255, 0.5); /* State active color */
+    --tx-sta-dis: #e0e0e0; /* State disabled color */
+    --tx-pri-tint: color-mix(in srgb, var(--tx-pri) 80%, white); /* Primary color tint */
+    --tx-pri-shade: color-mix(in srgb, var(--tx-pri) 80%, black); /* Primary color shade */
+    --tx-sec-tint: color-mix(in srgb, var(--tx-sec) 80%, white); /* Secondary color tint */
+    --tx-sec-shade: color-mix(in srgb, var(--tx-sec) 80%, black); /* Secondary color shade */
+    --tx-con-aa: 4.5; /* Color contrast ratio AA */
+    --tx-con-aaa: 7; /* Color contrast ratio AAA */
+/* Typography */
+    --tx-ff-pri: sans-serif; /* Primary font family */
+    --tx-ff-sec: serif; /* Secondary font family */
+    --tx-ff-fb: sans-serif; /* Fallback font family */
+    --tx-fw-reg: 400; /* Font weight regular */
+    --tx-fw-med: 500; /* Font weight medium */
+    --tx-fw-sem: 600; /* Font weight semibold */
+    --tx-fw-bold: 700; /* Font weight bold */
+    --tx-fw-lgt: 300; /* Font weight light */
+    --tx-fw-blk: 900; /* Font weight black */
+    --tx-fs-h1: calc(var(--tx) * 48); /* Font size h1 */
+    --tx-fs-h2: calc(var(--tx) * 40); /* Font size h2 */
+    --tx-fs-h3: calc(var(--tx) * 32); /* Font size h3 */
+    --tx-fs-h4: calc(var(--tx) * 24); /* Font size h4 */
+    --tx-fs-h5: calc(var(--tx) * 20); /* Font size h5 */
+    --tx-fs-h6: calc(var(--tx) * 16); /* Font size h6 */
+    --tx-fs-body: calc(var(--tx) * 16); /* Font size body */
+    --tx-fs-body-sm: calc(var(--tx) * 14); /* Font size small body */
+    --tx-fs-cap: calc(var(--tx) * 12); /* Font size caption */
+    --tx-fs-lbl: calc(var(--tx) * 14); /* Font size label */
+    --tx-fs-hlp: calc(var(--tx) * 12); /* Font size helper text */
+    --tx-fs-meta: calc(var(--tx) * 12); /* Font size metadata */
+    --tx-fs-btn: calc(var(--tx) * 16); /* Font size button */
+    --tx-fs-menu: calc(var(--tx) * 16); /* Font size menu */
+    --tx-fs-nav: calc(var(--tx) * 16); /* Font size navigation */
+    --tx-fs-sm: calc(var(--tx) * 12); /* Font size small text */
+    --tx-lh-base: 1.5; /* Line height base */
+    --tx-lh-head: 1.2; /* Line height headings */
+    --tx-lh-body: 1.5; /* Line height body */
+    --tx-lh-single: 1; /* Line height single line */
+    --tx-ls-head: -0.02em; /* Letter spacing headings */
+    --tx-ls-body: 0; /* Letter spacing body */
+    --tx-ta-def: left; /* Text align default */
+    --tx-ws-def: normal; /* Word spacing default */
+--tx-canvas-size: 420;
+/* Spacing & Layout */
+    --tx-canvas-size:2120; /* Canvas width for tx unit calculation */
+    --tx: calc(100vw / var(--tx-canvas-size)); /* Base unit for responsive scaling */
+    --tx-grid-col: 12; /* Grid columns count */
+    --tx-grid-gutter: calc(var(--tx) * 24); /* Grid gutter width */
+    --tx-grid-mrgn: calc(var(--tx) * 24); /* Grid margin width */
+    --tx-spc-unit: calc(var(--tx) * 4); /* Spacing unit base */
+    --tx-spc-xs: var(--tx-spc-unit); /* Spacing extra small */
+    --tx-spc-sm: calc(var(--tx-spc-unit) * 2); /* Spacing small */
+    --tx-spc-md: calc(var(--tx-spc-unit) * 4); /* Spacing medium */
+    --tx-spc-lg: calc(var(--tx-spc-unit) * 6); /* Spacing large */
+    --tx-spc-xl: calc(var(--tx-spc-unit) * 8); /* Spacing extra large */
+    --tx-spc-2xl: calc(var(--tx-spc-unit) * 10); /* Spacing 2xl */
+    --tx-spc-3xl: calc(var(--tx-spc-unit) * 12); /* Spacing 3xl */
+/* Iconography */
+    --tx-icon-xs: calc(var(--tx) * 16); /* Icon size extra small */
+    --tx-icon-sm: calc(var(--tx) * 20); /* Icon size small */
+    --tx-icon-md: calc(var(--tx) * 24); /* Icon size medium */
+    --tx-icon-lg: calc(var(--tx) * 32); /* Icon size large */
+    --tx-icon-xl: calc(var(--tx) * 40); /* Icon size extra large */
+/* Imagery */
+    --tx-img-place-color: var(--tx-neu-lgt); /* Image placeholder color */
+    --tx-ar-16-9: calc(9 / 16 * 100%); /* Aspect ratio 16:9 */
+    --tx-ar-4-3: calc(3 / 4 * 100%); /* Aspect ratio 4:3 */
+    --tx-ar-1-1: 100%; /* Aspect ratio 1:1 */
+/* Image Styling */
+    --tx-img-br: 0; /* Image border radius default */
+    --tx-img-shdw: none; /* Image shadow default */
+/* Motion & Animation */
+    --tx-trans-dur: 0.2s; /* Transition duration base */
+    --tx-ease-io: ease-in-out; /* Easing function ease-in-out */
+    --tx-ease-out: ease-out; /* Easing function ease-out */
+    --tx-ease-in: ease-in; /* Easing function ease-in */
+    --tx-ease-lin: linear; /* Easing function linear */
+/* Breakpoints */
+    --tx-bp-xs: 320px; /* Breakpoint extra small */
+    --tx-bp-sm: 480px; /* Breakpoint small */
+    --tx-bp-md: 768px; /* Breakpoint medium */
+    --tx-bp-lg: 1024px; /* Breakpoint large */
+    --tx-bp-xl: 1200px; /* Breakpoint extra large */
+}
+
+
+@media (max-width: 767px) {
+    :root {
+        --tx-canvas-size: 420;
+    }
+}

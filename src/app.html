@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fa">
+	<head>
+			<meta charset="utf-8" />
+			<title> -- Static Gen Barebone -- </title>
+			<link rel="icon" href="https://honarekhalagh.com/wp-content/uploads/2021/05/FAVICON2.png" sizes="32x32">
+			<meta name="description" content="Starter for static gen projects">
+			<link rel="canonical" href="https://honarekhalagh.com/">
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<style>
+			@media (max-width: 770px) {
+				:root {
+					--tx-canvas-size: 420!important;
+				}
+			}
+			:root{
+				--tx-canvas-size:2120;
+				--tx: calc(100vw / var(--tx-canvas-size));
+				--my-tx-size: var(--tx);
+			}
+
+		</style>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

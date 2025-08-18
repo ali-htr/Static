@@ -2,8 +2,10 @@
     import Header from "$lib/components/layout/Header.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
     import ProductCard from "$lib/components/ui/ProductCard.svelte";
+    import BlogCard from "$lib/components/ui/BlogCard.svelte";
     import Repeater from "$lib/components/ui/Repeater.svelte";
     import QuadProducts from "$lib/components/QuadProducts.svelte";
+    import QuadPosts from "$lib/components/QuadPosts.svelte";
 
     import "./app.css";
     import "../app.css";
@@ -256,10 +258,74 @@
         title: "best_products",
         data: [],
     };
+    const myBlogData = {
+        data: [
+            {
+                title: "The Future of Web Development",
+                image: "https://via.placeholder.com/300x200",
+                permalink: "/blog/future-of-web-development",
+                excerpt:
+                    "In this post, we explore the future trends and technologies in web development that will shape the next decade.",
+                category: "Web Development",
+            },
+            {
+                title: "Mastering JavaScript: A Beginner's Guide",
+                image: "https://via.placeholder.com/300x200",
+                permalink: "/blog/mastering-javascript",
+                excerpt:
+                    "JavaScript is one of the most powerful programming languages today. Here's a beginner-friendly guide to get started.",
+                category: "Programming",
+            },
+            {
+                title: "CSS Grid vs Flexbox: Which One Should You Use?",
+                image: "https://via.placeholder.com/300x200",
+                permalink: "/blog/css-grid-vs-flexbox",
+                excerpt:
+                    "CSS Grid and Flexbox are two modern layout systems. In this post, we compare both to help you decide which one to use.",
+                category: "CSS",
+            },
+            {
+                title: "Building a React App from Scratch",
+                image: "https://via.placeholder.com/300x200",
+                permalink: "/blog/building-a-react-app",
+                excerpt:
+                    "Learn how to set up a React application, from environment setup to building components and managing state.",
+                category: "React",
+            },
+            {
+                title: "10 Best Practices for Writing Clean Code",
+                image: "https://via.placeholder.com/300x200",
+                permalink: "/blog/best-practices-clean-code",
+                excerpt:
+                    "Writing clean, maintainable code is key to becoming a great developer. Here are 10 best practices you can adopt in your projects.",
+                category: "Best Practices",
+            },
+        ],
+    };
 </script>
 
 <div class="relative overflow-x-hidden bg-white" dir="rtl" page-id="home">
-    <Header />
+    <Header
+  logo={{ src: "/logo-dark.svg", alt: "My Shop", href: "/" }}
+  menuItems={[
+    { text: "خانه", href: "/" },
+    { text: "محصولات", href: "/products" },
+    { text: "بلاگ", href: "/blog" }
+  ]}
+  cartItems={[{ id: 1, quantity: 2 }, { id: 2, quantity: 1 }]}
+  user={{ loggedIn: true, name: "علی" }}
+  showDarkMode={true}
+  classNames={{
+    root: "bg-gray-900 text-white",
+    menuItem: "hover:text-yellow-400"
+  }}
+>
+  <!-- Custom Dark Mode -->
+  <button slot="darkmode" on:click={toggleDarkMode} class="p-2 rounded bg-gray-700">
+    🌙
+  </button>
+</Header>
+
     <div class="w-full relative txs-h-540 !md:txs-h-632">
         <!--    <img
       static="3746d1c74d661fc30918287e8ce82bd1"
@@ -392,7 +458,7 @@
         display="flex"
         direction="ltr"
     /> -->
-    <QuadProducts
+    <!--     <QuadProducts
         {ProductCard}
         cards={myProductDataa}
         data="products"
@@ -407,6 +473,40 @@
         regularPriceClass="line-through text-gray-300"
         salePriceClass="text-yellow-500"
         imageClass="rounded-lg shadow-xl"
+    /> -->
+
+    <QuadProducts
+        {ProductCard}
+        cards={myProductDataa}
+        data="products"
+        sort="newest"
+        repeater="grid"
+        category="mobiles"
+        sale="true"
+        mojood="true"
+        classNames={{
+            nameClass: "text-xl font-bold text-red-500",
+            brandClass: "text-sm text-gray-600",
+            priceClass: "text-lg font-semibold text-green-500",
+            regularPriceClass: "line-through text-gray-300",
+            salePriceClass: "text-yellow-500",
+            imageClass: "rounded-lg shadow-xl",
+        }}
+    />
+
+    <QuadPosts
+        {BlogCard}
+        cards={myBlogData}
+        data="posts"
+        sort="newest"
+        repeater="grid"
+        category="tech"
+        classNames={{
+            titleClass: "text-xl font-bold text-red-500",
+            excerptClass: "text-sm text-gray-600",
+            categoryClass: "text-lg font-semibold text-green-500",
+            imageClass: "rounded-lg shadow-xl",
+        }}
     />
 
     <!--  <Banner /> -->

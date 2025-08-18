@@ -1,11 +1,10 @@
+<!-- QuadPosts.svelte -->
 <script>
-    import ProductCard from "$lib/components/ui/ProductCard.svelte";
+    import BlogCard from "$lib/components/ui/BlogCard.svelte";
     import Repeater from "$lib/components/ui/Repeater.svelte";
 
     export let cards = [];
     export let data;
-    export let sale = "false";
-    export let mojood = "false";
     export let fields;
     export let sort;
     export let repeater;
@@ -13,8 +12,9 @@
     export let classNames = {};
 </script>
 
+<!-- Use Repeater with BlogCard -->
 <Repeater
-    component={ProductCard}
+    component={BlogCard}
     items={cards.data}
     hideNavigation={false}
     display="flex"

@@ -20,16 +20,6 @@
   export let containerClass: string = "";
   export let direction: "ltr" | "rtl" = "ltr";
 
-  // Custom class props
-  export let classNames = {
-    nameClass: "",
-    brandClass: "",
-    priceClass: "",
-    regularPriceClass: "",
-    salePriceClass: "",
-    imageClass: "",
-  };
-
   let scrollContainer: HTMLElement;
 
   // Drag/inertia state
@@ -319,8 +309,8 @@
       <svelte:component
         this={component}
         {...item}
+        {...componentProps}
         class={display === "flex" ? "flex-shrink-0 snap-start" : ""}
-        {classNames}
       />
     {/each}
   </div>

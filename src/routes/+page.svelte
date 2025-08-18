@@ -4,9 +4,11 @@
     import ProductCard from "$lib/components/ui/ProductCard.svelte";
     import BlogCard from "$lib/components/ui/BlogCard.svelte";
     import Repeater from "$lib/components/ui/Repeater.svelte";
+    import Heading from "$lib/components/ui/Heading.svelte";
     import QuadProducts from "$lib/components/QuadProducts.svelte";
     import QuadPosts from "$lib/components/QuadPosts.svelte";
-
+    import Banner from "$lib/components/ui/Banner.svelte";
+    import { ArrowRight } from "lucide-svelte";
     import "./app.css";
     import "../app.css";
 
@@ -306,25 +308,32 @@
 
 <div class="relative overflow-x-hidden bg-white" dir="rtl" page-id="home">
     <Header
-  logo={{ src: "/logo-dark.svg", alt: "My Shop", href: "/" }}
-  menuItems={[
-    { text: "خانه", href: "/" },
-    { text: "محصولات", href: "/products" },
-    { text: "بلاگ", href: "/blog" }
-  ]}
-  cartItems={[{ id: 1, quantity: 2 }, { id: 2, quantity: 1 }]}
-  user={{ loggedIn: true, name: "علی" }}
-  showDarkMode={true}
-  classNames={{
-    root: "bg-gray-900 text-white",
-    menuItem: "hover:text-yellow-400"
-  }}
->
-  <!-- Custom Dark Mode -->
-  <button slot="darkmode" on:click={toggleDarkMode} class="p-2 rounded bg-gray-700">
-    🌙
-  </button>
-</Header>
+        logo={{ src: "/logo-dark.svg", alt: "My Shop", href: "/" }}
+        menuItems={[
+            { text: "خانه", href: "/" },
+            { text: "محصولات", href: "/products" },
+            { text: "بلاگ", href: "/blog" },
+        ]}
+        cartItems={[
+            { id: 1, quantity: 2 },
+            { id: 2, quantity: 1 },
+        ]}
+        user={{ loggedIn: true, name: "علی" }}
+        showDarkMode={true}
+        classNames={{
+            root: "bg-gray-900 text-white",
+            menuItem: "hover:text-yellow-400",
+        }}
+    >
+        <!-- Custom Dark Mode -->
+        <button
+            slot="darkmode"
+            on:click={toggleDarkMode}
+            class="p-2 rounded bg-gray-700"
+        >
+            🌙
+        </button>
+    </Header>
 
     <div class="w-full relative txs-h-540 !md:txs-h-632">
         <!--    <img
@@ -475,45 +484,90 @@
         imageClass="rounded-lg shadow-xl"
     /> -->
 
-    <QuadProducts
-        {ProductCard}
-        cards={myProductDataa}
-        data="products"
-        sort="newest"
-        repeater="grid"
-        category="mobiles"
-        sale="true"
-        mojood="true"
-        classNames={{
-            nameClass: "text-xl font-bold text-red-500",
-            brandClass: "text-sm text-gray-600",
-            priceClass: "text-lg font-semibold text-green-500",
-            regularPriceClass: "line-through text-gray-300",
-            salePriceClass: "text-yellow-500",
-            imageClass: "rounded-lg shadow-xl",
-        }}
-    />
+    <!-- Banner -->
+    <div class="flex flex-col align-center justify-center gap-10 p-4">
+        <br />
+        <h2 class="text-center">Heading Component</h2>
+        <hr />
 
-    <QuadPosts
-        {BlogCard}
-        cards={myBlogData}
-        data="posts"
-        sort="newest"
-        repeater="grid"
-        category="tech"
-        classNames={{
-            titleClass: "text-xl font-bold text-red-500",
-            excerptClass: "text-sm text-gray-600",
-            categoryClass: "text-lg font-semibold text-green-500",
-            imageClass: "rounded-lg shadow-xl",
-        }}
-    />
+        <Heading
+            text="Latest Articles"
+            tag="h2"
+            textClass="text-xl font-bold !text-primary"
+            containerClass="mb-6"
+            button="See All"
+            buttonLink="/articles"
+            buttonClass="text-sm font-medium text-primary"
+            buttonContainerClass="ml-4"
+            icon={ArrowRight}
+            alignment="left"
+            entranceAnimation="slide-up"
+        />
 
-    <!--  <Banner /> -->
-    <!--   <Address /> -->
-    <!--   <Banner2 /> -->
+        <br />
+        <h2 class="text-center">Banner Component</h2>
+        <hr />
+        <Banner
+            bgImg="/assets/hero.jpg"
+            mainText="Welcome to My Website"
+            subText="The best place to find awesome stuff"
+            showBtn={true}
+            btnText="Shop Now"
+            btnLink="/shop"
+            bannerLink="/about"
+            containerClasses="bg-primary h-[400px] flex flex-col justify-center items-center text-center text-white"
+            mainTextClasses="text-4xl font-bold"
+            subTextClasses="text-lg mt-2"
+            btnClasses="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+            mainTag={true}
+        />
 
-    <!--   <QuadPosts
+        <br />
+        <h2 class="text-center">Products Repeater</h2>
+
+        <hr />
+        <QuadProducts
+            {ProductCard}
+            cards={myProductDataa}
+            data="products"
+            sort="newest"
+            repeater="grid"
+            category="mobiles"
+            sale="true"
+            mojood="true"
+            classNames={{
+                nameClass: "text-xl font-bold text-red-500",
+                brandClass: "text-sm text-gray-600",
+                priceClass: "text-lg font-semibold text-green-500",
+                regularPriceClass: "line-through text-gray-300",
+                salePriceClass: "text-yellow-500",
+                imageClass: "rounded-lg shadow-xl",
+            }}
+        />
+
+        <br />
+        <h2 class="text-center">Blog Repeater</h2>
+        <hr />
+        <QuadPosts
+            {BlogCard}
+            cards={myBlogData}
+            data="posts"
+            sort="newest"
+            repeater="grid"
+            category="tech"
+            classNames={{
+                titleClass: "text-xl font-bold text-red-500",
+                excerptClass: "text-sm text-gray-600",
+                categoryClass: "text-lg font-semibold text-green-500",
+                imageClass: "rounded-lg shadow-xl",
+            }}
+        />
+
+        <!--  <Banner /> -->
+        <!--   <Address /> -->
+        <!--   <Banner2 /> -->
+
+        <!--   <QuadPosts
     cards={myPostData}
     repeater="sp_posts"
     data="posts"
@@ -522,13 +576,14 @@
     fields='["image", "name", "permalink"]'
   /> -->
 
-    <div class="!md:txs-mb-100 txs-mb-40">
-        <!--    <Heading
+        <div class="!md:txs-mb-100 txs-mb-40">
+            <!--    <Heading
       showHead="false"
       text="انتقادات و پیشنهادات"
       subText="نظرات شما عزیزان"
     /> -->
-        <!--     <Slider images={slides} /> -->
+            <!--     <Slider images={slides} /> -->
+        </div>
     </div>
     <Footer />
 </div>

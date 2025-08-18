@@ -291,7 +291,7 @@
     class={`${
       display === "grid"
         ? "grid txs-mt-8"
-        : "flex txs-mt-8 overflow-x-hidden txs-gap-4 scrollbar-hide snap-x snap-mandatory"
+        : "flex txs-mt-8 overflow-x-hidden gap-4 scrollbar-hide snap-x snap-mandatory"
     } ${display === "grid" ? `txs-grid-cols-${gridCols}` : ""} ${containerClass}`}
     style={display === "grid"
       ? `grid-template-columns: repeat(${gridCols}, minmax(0, 1fr));`

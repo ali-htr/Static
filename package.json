@@ -21,6 +21,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@googlemaps/js-api-loader": "^1.16.10",
 		"@sveltejs/adapter-static": "^3.0.8",
 		"@tailwindcss/vite": "^4.0.9",
 		"jalaali-js": "^1.2.8",

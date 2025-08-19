@@ -8,7 +8,29 @@
     import QuadProducts from "$lib/components/QuadProducts.svelte";
     import QuadPosts from "$lib/components/QuadPosts.svelte";
     import Banner from "$lib/components/ui/Banner.svelte";
-    import { ArrowRight } from "lucide-svelte";
+    import Button from "$lib/components/ui/Button.svelte";
+    import Icon from "$lib/components/ui/Icon.svelte";
+    import IconList from "$lib/components/ui/IconList.svelte";
+    import IconBox from "$lib/components/ui/IconBox.svelte";
+    import VideoPlayer from "$lib/components/ui/VideoPlayer.svelte";
+    import LocationMap from "$lib/components/ui/LocationMap.svelte";
+    import Accordion from "$lib/components/ui/Accordion.svelte";
+
+    import {
+        ArrowRight,
+        Play,
+        LogIn,
+        ShoppingCart,
+        Star,
+        Heart,
+        Bell,
+        Github,
+        Plus,
+        Minus,
+        ChevronDown,
+        Shield,
+        Book,
+    } from "lucide-svelte";
     import "./app.css";
     import "../app.css";
 
@@ -304,6 +326,97 @@
             },
         ],
     };
+
+    /* Location Component */
+    const locations = [
+        {
+            address: { lat: 35.6892, lng: 51.389 }, // Tehran
+            title: "Tehran",
+            description:
+                "<p>The capital of Iran, known for its vibrant culture and history.</p>",
+        },
+        {
+            address: { lat: 34.6399, lng: 50.8759 }, // Qom
+            title: "Qom",
+            description:
+                "<p>One of the most important religious cities in Iran.</p>",
+        },
+        {
+            address: { lat: 32.6539, lng: 51.666 }, // Isfahan
+            title: "Isfahan",
+            description:
+                "<p>Famous for its Persian–Islamic architecture, boulevards, and bridges.</p>",
+        },
+    ];
+
+    // Example custom map style (dark mode)
+    const darkMapStyle = JSON.stringify([
+        { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+        { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+        { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+        {
+            featureType: "administrative.locality",
+            elementType: "labels.text.fill",
+            stylers: [{ color: "#d59563" }],
+        },
+        {
+            featureType: "poi",
+            elementType: "labels.text.fill",
+            stylers: [{ color: "#d59563" }],
+        },
+        {
+            featureType: "poi.park",
+            elementType: "geometry",
+            stylers: [{ color: "#263c3f" }],
+        },
+    ]);
+
+    /* Accordion */
+    const faqItems = [
+        {
+            id: "q1",
+            title: "What is Svelte?",
+            content:
+                "<p>Svelte is a compiler that generates minimal and highly optimized JavaScript for building user interfaces.</p>",
+            isOpen: false,
+        },
+        {
+            id: "q2",
+            title: "How is it different from React or Vue?",
+            content:
+                "<p>Svelte shifts work from the browser to the build step, resulting in smaller bundles and faster apps.</p>",
+            isOpen: false,
+        },
+        {
+            id: "q3",
+            title: "Can I use Svelte with TailwindCSS?",
+            content:
+                "<p>Yes! Svelte works perfectly with TailwindCSS for utility-first styling.</p>",
+            isOpen: false,
+        },
+    ];
+
+    /* Icon List */
+
+    const items = [
+        {
+            id: 1,
+            text: "Home",
+            icon: Plus,
+            link: { href: "/", target: "_self", rel: "noopener" },
+        },
+        {
+            id: 2,
+            text: "Profile",
+            icon: Plus,
+            link: { href: "/profile", target: "_self", rel: "noopener" },
+        },
+        {
+            id: 3,
+            text: "Settings",
+            icon: Plus,
+        },
+    ];
 </script>
 
 <div class="relative overflow-x-hidden bg-white" dir="rtl" page-id="home">
@@ -334,7 +447,7 @@
             🌙
         </button>
     </Header>
-
+    
     <div class="w-full relative txs-h-540 !md:txs-h-632">
         <!--    <img
       static="3746d1c74d661fc30918287e8ce82bd1"
@@ -504,6 +617,204 @@
             entranceAnimation="slide-up"
         />
 
+        <br />
+        <h2 class="text-center">Video Player</h2>
+        <hr />
+        <VideoPlayer
+            source="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            platform="youtube"
+            autoplay={false}
+            mute={false}
+            loop={false}
+            controls={true}
+            startTime={30}
+            endTime={60}
+            lazy={true}
+            privacy={true}
+            coverImage="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+            playIcon={Play}
+            iconSize="80px"
+            iconColor="red"
+            iconShadow="drop-shadow-xl"
+            lightbox={true}
+            aspectRatio="16/9"
+            filters="brightness-95"
+            platformOptions={{ modestBranding: true, rel: false }}
+        />
+
+        <br />
+        <h2 class="text-center">Buttons</h2>
+        <hr />
+        <div class="gap-4 flex">
+            <Button
+                text="Click Me"
+                buttonClass="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+            />
+
+            <!-- 2. Icon + text button -->
+            <Button
+                text="Sign In"
+                icon={LogIn}
+                buttonClass="flex items-center px-5 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition"
+                textClass="text-white font-semibold"
+                iconClass="w-5 h-5 text-white"
+            />
+
+            <!-- 3. Icon only button -->
+            <Button
+                icon={ShoppingCart}
+                buttonClass="p-3 rounded-full bg-gray-200 hover:bg-gray-300"
+                iconClass="w-6 h-6 text-gray-800"
+            />
+
+            <!-- 4. Link button -->
+            <Button
+                text="Go to Docs"
+                link="https://svelte.dev"
+                target="_blank"
+                rel="noopener"
+                icon={ArrowRight}
+                iconPosition="right"
+                buttonClass="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg"
+                textClass="text-white"
+            />
+
+            <!-- 5. Fully custom slot -->
+            <Button
+                buttonClass="flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg"
+            >
+                <span class="text-white font-bold">🔥 Hot Deal</span>
+                <ArrowRight class="w-5 h-5 text-white" />
+            </Button>
+        </div>
+        <br />
+
+        <h2 class="text-center">Icons</h2>
+        <hr />
+        <div class="gap-4 flex">
+            <!-- FontAwesome -->
+            <Icon
+                icon="fa-solid fa-star"
+                containerClass="text-center"
+                iconClass="text-yellow-500 text-3xl hover:text-orange-500 transition"
+            />
+
+            <!-- Lucide -->
+            <Icon
+                icon={Heart}
+                wrapperClass="bg-red-500 hover:bg-red-700 rounded-full p-3 transition"
+                iconClass="text-white w-6 h-6"
+            />
+
+            <!-- Lucide with border (framed) -->
+            <Icon
+                icon={Bell}
+                view="framed"
+                wrapperClass="border-2 border-blue-500 hover:border-orange-500 rounded-lg p-2 transition"
+                iconClass="text-blue-500 hover:text-orange-500 w-6 h-6"
+            />
+
+            <!-- External SVG file -->
+            <Icon
+                icon="/icons/custom-icon.svg"
+                wrapperClass="hover:scale-110 transition"
+                iconClass="w-8 h-8"
+            />
+
+            <!-- With link -->
+            <Icon
+                icon={Github}
+                link="https://github.com"
+                wrapperClass="hover:scale-125 transition"
+                iconClass="text-black w-8 h-8"
+            />
+        </div>
+
+        <br />
+        <h2 class="text-center">Location</h2>
+        <hr />
+
+        <br />
+
+        <h2 class="text-center">IconList</h2>
+        <hr />
+        <div class="gap-4 flex">
+            <!-- Vertical List with Divider -->
+            <IconList
+                {items}
+                layout="vertical"
+                align="start"
+                showDivider={true}
+                spacing="12px"
+            />
+
+            <IconList
+                {items}
+                layout="horizontal"
+                align="center"
+                showDivider={false}
+                spacing="24px"
+            />
+        </div>
+        <br />
+
+        <h2 class="text-center">IconBox</h2>
+        <hr />
+        <div class="gap-4 flex">
+            <!-- Icon on TOP -->
+            <IconBox
+                title="High Performance"
+                description="Optimized for speed and efficiency."
+                wrapperClass="p-6 border rounded-xl hover:shadow-lg transition bg-white"
+                titleClass="text-xl font-bold text-gray-900"
+                descriptionClass="text-gray-600 text-sm"
+            >
+                <Star slot="icon" class="w-10 h-10 text-blue-600" />
+            </IconBox>
+
+            <!-- Icon on LEFT -->
+            <IconBox
+                title="Secure"
+                description="Your data is always safe with us."
+                iconPosition="left"
+                wrapperClass="p-4 border rounded-lg bg-gray-50 hover:bg-gray-100"
+            >
+                <Shield slot="icon" class="w-8 h-8 text-green-600" />
+            </IconBox>
+
+            <!-- Icon on RIGHT -->
+            <IconBox
+                title="Documentation"
+                description="Read our detailed API and guides."
+                iconPosition="right"
+                wrapperClass="p-4 border rounded-lg bg-white hover:shadow-md"
+                link={{ href: "/docs", target: "_blank", rel: "nofollow" }}
+            >
+                <Book slot="icon" class="w-8 h-8 text-purple-600" />
+            </IconBox>
+        </div>
+        <br />
+
+        <h2 class="text-center">Accordion</h2>
+        <hr />
+        <Accordion
+            items={faqItems}
+            accordion={true}
+            defaultOpen={["q1"]}
+            transitionSpeed={300}
+            titleTag="h2"
+            icon={Plus}
+            iconActive={Minus}
+            iconPosition="right"
+            iconRotation={180}
+            containerClass="space-y-4"
+            itemClass="border rounded-lg shadow"
+            headerClass="flex items-center justify-between p-4 cursor-pointer select-none"
+            titleClass="text-lg font-medium text-gray-800"
+            iconClass="ml-2 text-gray-500"
+            contentClass="overflow-hidden"
+            contentInnerClass="p-4 text-gray-600 bg-gray-50"
+        />
         <br />
         <h2 class="text-center">Banner Component</h2>
         <hr />

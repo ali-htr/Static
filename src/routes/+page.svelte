@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Header from "$lib/components/layout/Header.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
     import ProductCard from "$lib/components/ui/ProductCard.svelte";
@@ -15,6 +15,12 @@
     import VideoPlayer from "$lib/components/ui/VideoPlayer.svelte";
     import LocationMap from "$lib/components/ui/LocationMap.svelte";
     import Accordion from "$lib/components/ui/Accordion.svelte";
+    import Slider from "$lib/components/ui/Slider.svelte";
+    import type { Slide } from "$lib/components/ui/slider-types";
+    import TestimonialCard from "$lib/components/ui/TestimonialCard.svelte";
+    import Tabs from "$lib/components/ui/Tabs.svelte";
+    import Tab from "$lib/components/ui/Tab.svelte";
+    import ShareButton from "$lib/components/ui/ShareButton.svelte";
 
     import {
         ArrowRight,
@@ -30,10 +36,14 @@
         ChevronDown,
         Shield,
         Book,
+        Home,
+        User,
+        Image,
+        Settings,
     } from "lucide-svelte";
     import "./app.css";
     import "../app.css";
-
+    /* 
     let slides = [
         {
             name: "پزشک نمونه",
@@ -57,7 +67,7 @@
             img: "https://tadarokteb.ir/wp-content/uploads/2025/05/image-16.png",
         },
     ];
-
+ */
     let myPostData = {
         title: "sp_posts",
         data: [],
@@ -417,6 +427,46 @@
             icon: Plus,
         },
     ];
+
+    /* Slider */
+    const slides: Slide[] = [
+        {
+            id: "1",
+            background: {
+                type: "image",
+                imageUrl: "https://picsum.photos/id/1011/1200/600",
+                overlayColor: "black",
+                overlayOpacity: 0.4,
+            },
+            title: "Mountain Adventure",
+            description: "Discover the beauty of the mountains with us.",
+            link: { url: "/adventure", label: "Explore" },
+        },
+        {
+            id: "2",
+            background: {
+                type: "image",
+                imageUrl: "https://picsum.photos/id/1005/1200/600",
+                overlayColor: "black",
+                overlayOpacity: 0.4,
+            },
+            title: "City Lights",
+            description: "Experience the vibrant city life.",
+            link: { url: "/city", label: "Discover" },
+        },
+        {
+            id: "3",
+            background: {
+                type: "image",
+                imageUrl: "https://picsum.photos/id/1022/1200/600",
+                overlayColor: "black",
+                overlayOpacity: 0.4,
+            },
+            title: "Beach Escape",
+            description: "Relax by the sea and feel the breeze.",
+            link: { url: "/beach", label: "Book Now" },
+        },
+    ];
 </script>
 
 <div class="relative overflow-x-hidden bg-white" dir="rtl" page-id="home">
@@ -447,7 +497,7 @@
             🌙
         </button>
     </Header>
-    
+
     <div class="w-full relative txs-h-540 !md:txs-h-632">
         <!--    <img
       static="3746d1c74d661fc30918287e8ce82bd1"
@@ -643,6 +693,7 @@
         />
 
         <br />
+
         <h2 class="text-center">Buttons</h2>
         <hr />
         <div class="gap-4 flex">
@@ -689,6 +740,76 @@
         </div>
         <br />
 
+        <br />
+        <h2 class="text-center">Sliders</h2>
+        <hr />
+        <Slider
+            items={slides}
+            autoplay
+            interval={5000}
+            showArrows
+            showDots
+            wrapperClass="w-full h-screen"
+            slideClass="h-full"
+            trackClass="h-full"
+            dotClass="rounded-full transition"
+            dotActiveClass="bg-blue-600 scale-125 ring-2 ring-blue-300"
+        >
+            <svelte:fragment slot="slide" let:item>
+                <div class="relative w-full h-full">
+                    <img
+                        src={item.background?.imageUrl}
+                        alt={item.title}
+                        class="w-full h-full object-cover"
+                    />
+                    <div
+                        class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white"
+                    >
+                        <h1 class="text-5xl font-bold mb-4">{item.title}</h1>
+                        <p class="text-xl">{item.description}</p>
+                    </div>
+                </div>
+            </svelte:fragment>
+        </Slider>
+
+        <hr class="my-12" />
+
+        <!-- Image-only slider with links -->
+        <Slider
+            items={slides}
+            autoplay
+            interval={4000}
+            showArrows
+            showDots
+            dotClass="rounded-full transition"
+            dotActiveClass="bg-blue-600 scale-125 ring-2 ring-blue-300"
+            slidesPerView={1}
+        >
+            <svelte:fragment slot="slide" let:item>
+                <a
+                    href={item.link?.url || "#"}
+                    class="block w-full h-64 md:h-[28rem] relative group"
+                >
+                    <img
+                        src={item.background?.imageUrl}
+                        alt={item.title}
+                        class="w-full h-full object-cover rounded-lg"
+                    />
+                    <div
+                        class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition flex items-center justify-center"
+                    >
+                        <span
+                            class="text-white text-lg md:text-2xl font-semibold"
+                        >
+                            {item.title}
+                        </span>
+                    </div>
+                </a>
+            </svelte:fragment>
+        </Slider>
+
+        <br />
+
         <h2 class="text-center">Icons</h2>
         <hr />
         <div class="gap-4 flex">
@@ -730,32 +851,136 @@
             />
         </div>
 
-        <br />
-        <h2 class="text-center">Location</h2>
+        <h2 class="text-center">Tabs</h2>
         <hr />
+        <div class="p-6">
+            <!-- افقی، LTR -->
+            <Tabs
+                defaultIndex={0}
+                orientation="horizontal"
+                direction="ltr"
+                wrapperClass="bg-white shadow rounded-lg"
+                tabListClass="border-b"
+                tabClass="text-sm"
+                activeClass="text-blue-600 border-blue-600"
+                inactiveClass="text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300"
+                panelClass="p-4"
+            >
+                <Tab index={0} label="Home" iconBefore={Home}>
+                    <h2 class="text-xl font-semibold">Home</h2>
+                    <p class="mt-2 text-gray-600">
+                        This is the home tab content.
+                    </p>
+                </Tab>
+
+                <Tab index={1} label="Profile" iconBefore={User}>
+                    <h2 class="text-xl font-semibold">Profile</h2>
+                    <p class="mt-2 text-gray-600">
+                        This is the profile tab content.
+                    </p>
+                </Tab>
+
+                <Tab index={2} label="Settings" iconBefore={Settings}>
+                    <h2 class="text-xl font-semibold">Settings</h2>
+                    <p class="mt-2 text-gray-600">
+                        This is the settings panel content.
+                    </p>
+                </Tab>
+
+                <!-- Disabled Tab -->
+                <Tab index={3} label="Disabled Tab" disabled>
+                    <p>This tab is disabled and won’t be selectable.</p>
+                </Tab>
+            </Tabs>
+
+            <!-- عمودی، RTL -->
+            <Tabs
+                defaultIndex={0}
+                orientation="vertical"
+                direction="rtl"
+                wrapperClass="mt-10 bg-white shadow rounded-lg"
+                tabListClass="border-l"
+                tabClass="text-sm"
+                activeClass="text-green-600 border-green-600"
+                inactiveClass="text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300"
+                panelClass="p-4"
+            >
+                <Tab index={0} label="خانه" iconBefore={Home}>
+                    <h2 class="text-xl font-semibold">خانه</h2>
+                    <p class="mt-2 text-gray-600">این محتوای تب خانه است.</p>
+                </Tab>
+
+                <Tab index={1} label="پروفایل" iconBefore={User}>
+                    <h2 class="text-xl font-semibold">پروفایل</h2>
+                    <p class="mt-2 text-gray-600">این محتوای تب پروفایل است.</p>
+                </Tab>
+
+                <Tab index={2} label="تنظیمات" iconBefore={Settings}>
+                    <h2 class="text-xl font-semibold">تنظیمات</h2>
+                    <p class="mt-2 text-gray-600">این محتوای تب تنظیمات است.</p>
+                </Tab>
+            </Tabs>
+        </div>
 
         <br />
-
-        <h2 class="text-center">IconList</h2>
+        <h2 class="text-center">Share Button</h2>
         <hr />
-        <div class="gap-4 flex">
-            <!-- Vertical List with Divider -->
-            <IconList
-                {items}
-                layout="vertical"
-                align="start"
-                showDivider={true}
-                spacing="12px"
+        <div class="mt-4">
+            <ShareButton
+                url="https://mywebsite.com/post/123"
+                title="Awesome Blog Post"
+                text="Read this!"
+                direction="ltr"
+                buttonClass="px-3 py-1 bg-indigo-600 text-white rounded flex items-center gap-2"
             />
 
-            <IconList
-                {items}
-                layout="horizontal"
-                align="center"
-                showDivider={false}
-                spacing="24px"
+            <!-- RTL -->
+            <ShareButton
+                url="https://mywebsite.com/post/123"
+                title="پست وبلاگ عالی"
+                text="این رو بخون!"
+                direction="rtl"
+                buttonClass="px-3 py-1 bg-green-600 text-white rounded flex items-center gap-2"
             />
         </div>
+        <br />
+        <h2 class="text-center">Testimonial</h2>
+        <hr />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+            <!-- LTR example -->
+            <TestimonialCard
+                direction="ltr"
+                content="Loved the flexibility of components!"
+                authorName="Jane Smith"
+                authorTitle="UI Designer"
+                avatarUrl="https://i.pravatar.cc/100?img=8"
+                rating={4}
+                wrapperClass="bg-gray-50 p-6 rounded-xl shadow-lg flex flex-col items-center text-left"
+                contentClass="text-gray-700 text-base mt-4 text-left"
+                nameClass="text-lg font-bold mt-3 text-left"
+                titleClass="text-sm text-gray-500 text-left"
+            />
+
+            <!-- RTL example -->
+            <TestimonialCard
+                direction="rtl"
+                content="این بهترین تجربه‌ای بود که داشتم. خیلی سریع و راحت!"
+                authorName="name"
+                authorTitle="برنامه‌نویس فرانت‌اند"
+                avatarUrl="https://i.pravatar.cc/100?img=5"
+                rating={5}
+                wrapperClass="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-right"
+                contentClass="text-gray-600 text-base mt-4 text-right"
+                nameClass="text-lg font-semibold mt-3 text-right"
+                titleClass="text-sm text-gray-400 text-right"
+                ratingWrapperClass="flex justify-end gap-1 mt-2"
+            />
+        </div>
+        <br />
+
+        <h2 class="text-center">Share Button</h2>
+        <hr />
+
         <br />
 
         <h2 class="text-center">IconBox</h2>

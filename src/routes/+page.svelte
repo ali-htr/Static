@@ -22,7 +22,38 @@
     import Tab from "$lib/components/ui/Tab.svelte";
     import ShareButton from "$lib/components/ui/ShareButton.svelte";
 
+    import SearchComponent from "$lib/components/ui/SearchComponent.svelte";
+
+    // --- State to hold the data from the component's events ---
+    let searchValue = ""; // Bound to the input value inside the component
+    let lastRawInput = "";
+    let finalSearchTerm = "";
+    let selectedUser = "";
+
+    // --- Event Handlers ---
+
+    // 1. This function runs every time the user types a character.
+    function handleInput(event: CustomEvent<string>) {
+        // event.detail contains the data dispatched from the component
+        lastRawInput = event.detail;
+    }
+
+    // 2. This function runs when the user clicks the "Search" button or presses Enter.
+    function handleSearch(event: CustomEvent<string>) {
+        finalSearchTerm = event.detail;
+        selectedUser = ""; // Clear selection on a new search
+        console.log("Search submitted for:", finalSearchTerm);
+    }
+
+    // 3. This function runs when the user clicks on an item in the suggestions list.
+    function handleSelect(event: CustomEvent<string>) {
+        selectedUser = event.detail;
+        finalSearchTerm = ""; // Clear search term on selection
+        console.log("User selected:", selectedUser);
+    }
+
     import {
+        Globe,
         ArrowRight,
         Play,
         LogIn,
@@ -668,6 +699,41 @@
         />
 
         <br />
+        <h2 class="text-center">Search Autocomplete</h2>
+        <hr />
+
+        <div>
+            <SearchComponent
+                bind:value={searchValue}
+                apiUrl="https://jsonplaceholder.typicode.com/users"
+                placeholder="Search for a user..."
+                on:search={handleSearch}
+                on:select={handleSelect}
+            />
+
+            <!-- Display the results from the events to show it's working -->
+            <div class="results-display">
+                {#if lastRawInput}
+                    <p>
+                        <strong>Live Input:</strong>
+                        <span>{lastRawInput}</span>
+                    </p>
+                {/if}
+
+                {#if finalSearchTerm}
+                    <div class="final-result">
+                        You searched for: <strong>{finalSearchTerm}</strong>
+                    </div>
+                {/if}
+
+                {#if selectedUser}
+                    <div class="final-result">
+                        You selected: <strong>{selectedUser}</strong>
+                    </div>
+                {/if}
+            </div>
+        </div>
+        <br />
         <h2 class="text-center">Video Player</h2>
         <hr />
         <VideoPlayer
@@ -691,7 +757,6 @@
             filters="brightness-95"
             platformOptions={{ modestBranding: true, rel: false }}
         />
-
         <br />
 
         <h2 class="text-center">Buttons</h2>
@@ -926,21 +991,44 @@
         <h2 class="text-center">Share Button</h2>
         <hr />
         <div class="mt-4">
+            <ShareButton />
+
+            <!-- Custom classes -->
+            <h2 class="text-lg font-semibold">Custom Styled Button</h2>
             <ShareButton
-                url="https://mywebsite.com/post/123"
-                title="Awesome Blog Post"
-                text="Read this!"
-                direction="ltr"
-                buttonClass="px-3 py-1 bg-indigo-600 text-white rounded flex items-center gap-2"
+                buttonClass="px-4 py-2 rounded-full bg-green-600 text-white hover:bg-green-700 shadow"
+                menuClass="absolute mt-2 w-52 bg-white border border-gray-200 rounded-xl shadow-lg p-2 z-50"
+                itemClass="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
             />
 
-            <!-- RTL -->
+            <!-- RTL mode -->
+            <h2 class="text-lg font-semibold">RTL Mode</h2>
+            <ShareButton direction="rtl" />
+
+            <!-- Custom networks -->
+            <h2 class="text-lg font-semibold">Custom Networks</h2>
             <ShareButton
-                url="https://mywebsite.com/post/123"
-                title="پست وبلاگ عالی"
-                text="این رو بخون!"
-                direction="rtl"
-                buttonClass="px-3 py-1 bg-green-600 text-white rounded flex items-center gap-2"
+                networks={[
+                    {
+                        name: "Reddit",
+                        icon: Globe,
+                        href: (url, text) =>
+                            `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`,
+                    },
+                    {
+                        name: "Copy Link",
+                        icon: Globe,
+                        href: (url) =>
+                            `javascript:navigator.clipboard.writeText('${url}')`,
+                    },
+                ]}
+            />
+
+            <!-- Icon only -->
+            <h2 class="text-lg font-semibold">Icon-Only Mode</h2>
+            <ShareButton
+                showLabel={false}
+                buttonClass="p-3 rounded-full bg-blue-600 text-white hover:bg-blue-700"
             />
         </div>
         <br />
@@ -1123,3 +1211,44 @@
     </div>
     <Footer />
 </div>
+
+<!-- SearchPage.svelte -->
+
+<style>
+    .container {
+        max-width: 600px;
+        margin: 40px auto;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .title {
+        text-align: center;
+        color: #333;
+    }
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-top: -10px;
+    }
+    .results-display {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        min-height: 100px;
+        color: #444;
+    }
+    .results-display p {
+        margin: 0 0 10px 0;
+    }
+    .results-display span {
+        color: #888;
+    }
+    .final-result {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #005a9c;
+    }
+</style>
